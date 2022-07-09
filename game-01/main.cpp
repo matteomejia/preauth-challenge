@@ -7,6 +7,8 @@
 #include <chrono>
 
 // brute force
+// solves in O(n^2)
+// this is the first solution I implemented
 std::pair<int, int> solve_brute(std::vector<int> M, int N)
 {
     int len = M.size();
@@ -25,6 +27,8 @@ std::pair<int, int> solve_brute(std::vector<int> M, int N)
 }
 
 // brute force with reduced search space
+// solves in O(n^2)
+// This optimization was easy to figure out but it is not enough
 std::pair<int, int> solve_brute_opt(std::vector<int> M, int N)
 {
     int len = M.size();
@@ -42,37 +46,9 @@ std::pair<int, int> solve_brute_opt(std::vector<int> M, int N)
     return {-1, -1};
 }
 
-// with sorting and reduced search
-std::pair<int, int> solve_search(std::vector<int> M, int N)
-{
-    std::sort(M.begin(), M.end());
-
-    int len = M.size();
-
-    int lo = 0;
-    int hi = len - 1;
-
-    while (lo < hi)
-    {
-        if (M[lo] + M[hi] == N)
-        {
-            return {M[lo], M[hi]};
-        }
-
-        if (M[lo] + M[hi] < N)
-        {
-            lo++;
-        }
-        else
-        {
-            hi--;
-        }
-    }
-
-    return {-1, -1};
-}
-
 // with sorting and binary search
+// solves in O(n log n)
+// This was the obvious next step since it is a search problem
 std::pair<int, int> solve_bs(std::vector<int> M, int N)
 {
     std::sort(M.begin(), M.end());
@@ -109,7 +85,45 @@ std::pair<int, int> solve_bs(std::vector<int> M, int N)
     return {-1, -1};
 }
 
+// I had a feeling my binary search version was not the best
+// possible solution, so I did a quick search and found two
+// alternate methods:
+
+// with sorting and reduced search
+// solves in O(n log n)
+// similar to binary search but it is basically an optimized complete search
+std::pair<int, int> solve_search(std::vector<int> M, int N)
+{
+    std::sort(M.begin(), M.end());
+
+    int len = M.size();
+
+    int lo = 0;
+    int hi = len - 1;
+
+    while (lo < hi)
+    {
+        if (M[lo] + M[hi] == N)
+        {
+            return {M[lo], M[hi]};
+        }
+
+        if (M[lo] + M[hi] < N)
+        {
+            lo++;
+        }
+        else
+        {
+            hi--;
+        }
+    }
+
+    return {-1, -1};
+}
+
 // with hashing
+// solves in O(n)
+// I'll be honest, I saw this kind of solution in my competitive programming class but I forgot about it.
 std::pair<int, int> solve_hash(std::vector<int> M, int N)
 {
     std::unordered_map<int, int> hash;
@@ -129,7 +143,7 @@ std::pair<int, int> solve_hash(std::vector<int> M, int N)
     return {-1, -1};
 }
 
-// To generate random arrays
+// Function to generate random arrays
 std::vector<int> generate_array(int n, int min, int max)
 {
     std::vector<int> arr;
