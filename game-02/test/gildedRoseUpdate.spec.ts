@@ -1,4 +1,11 @@
-import { GildedRose, Item } from "../app/gilded-rose";
+import {
+    RegularItem,
+    AgedBrieItem,
+    SulfurasItem,
+    BackstagePassItem,
+    ConjuredItem,
+} from "../app/item-library";
+import { GildedRose } from "../app/gilded-rose";
 import { expect } from "chai";
 
 /**
@@ -6,15 +13,9 @@ import { expect } from "chai";
  */
 describe("Gilded Rose Update Tests", () => {
     it("check Aged Brie update", () => {
-        var originalItems: Array<Item> = [
-            {
-                name: "Aged Brie",
-                quality: 24,
-                sellIn: 5,  
-            },
-        ];
+        var agedBrieItem = new AgedBrieItem("Aged Brie", 5, 24);
 
-        var gildedRose = new GildedRose(originalItems);
+        var gildedRose = new GildedRose([agedBrieItem]);
 
         for (let i = 0; i < 7; i++) {
             gildedRose.updateQuality();
@@ -25,15 +26,13 @@ describe("Gilded Rose Update Tests", () => {
     });
 
     it("check Sulfuras update", () => {
-        var originalItems: Array<Item> = [
-            {
-                name: "Sulfuras, Hand of Ragnaros",
-                quality: 80,
-                sellIn: 0,
-            },
-        ];
+        var sulfurasItem = new SulfurasItem(
+            "Sulfuras, Hand of Ragnaros",
+            0,
+            80
+        );
 
-        var gildedRose = new GildedRose(originalItems);
+        var gildedRose = new GildedRose([sulfurasItem]);
 
         gildedRose.updateQuality();
 
@@ -42,15 +41,13 @@ describe("Gilded Rose Update Tests", () => {
     });
 
     it("check Backstage update", () => {
-        var originalItems: Array<Item> = [
-            {
-                name: "Backstage passes to a TAFKAL80ETC concert",
-                quality: 10,
-                sellIn: 14,
-            },
-        ];
+        var backstagePassItem = new BackstagePassItem(
+            "Backstage passes to a TAFKAL80ETC concert",
+            14,
+            10
+        );
 
-        var gildedRose = new GildedRose(originalItems);
+        var gildedRose = new GildedRose([backstagePassItem]);
 
         for (let i = 0; i < 10; i++) {
             gildedRose.updateQuality();
@@ -61,15 +58,9 @@ describe("Gilded Rose Update Tests", () => {
     });
 
     it("check Conjured update", () => {
-        var originalItems: Array<Item> = [
-            {
-                name: "Conjured",
-                quality: 30,
-                sellIn: 3,
-            },
-        ];
+        var conjuredItem = new ConjuredItem("Conjured", 3, 30);
 
-        var gildedRose = new GildedRose(originalItems);
+        var gildedRose = new GildedRose([conjuredItem]);
 
         for (let i = 0; i < 4; i++) {
             gildedRose.updateQuality();
@@ -80,15 +71,9 @@ describe("Gilded Rose Update Tests", () => {
     });
 
     it("check regular update", () => {
-        var originalItems: Array<Item> = [
-            {
-                name: "Regular",
-                quality: 5,
-                sellIn: 2,
-            },
-        ];
+        var regularItem = new RegularItem("Regular", 2, 5);
 
-        var gildedRose = new GildedRose(originalItems);
+        var gildedRose = new GildedRose([regularItem]);
 
         for (let i = 0; i < 4; i++) {
             gildedRose.updateQuality();
